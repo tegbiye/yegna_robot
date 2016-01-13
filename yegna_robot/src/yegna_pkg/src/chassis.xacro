@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<robot name="simple_legged_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Macro for simple_legged_robot body.  -->
+  
+  	
+  	<xacro:include filename="chassis.gazebo" /> 
+	  
+	   <link name = "camera_head">
+	     <visual>
+	       <geometry>
+	          <sphere radius="0.42"/>
+	       </geometry>
+	      <material name = "white">
+	        <color rgba="1 1 1 1"/>
+	      </material>  
+	     </visual>
+	     
+	     <collision>
+	     <geometry>
+	       <cylinder length = "0.6" radius = "0.4"/> 
+	     </geometry>
+	   </collision> 
+	   
+	   </link>
+	   
+	   <joint name = "camera_head_joint" type="continuous">
+	        <origin xyz="0 0 .45"/>
+	        <axis xyz = "0 0 1"/>
+	        <parent link="base_link" />
+	        <child link="camera_head" />
+	   
+	   </joint>
+	   
+	   <link name = "camera_indicator">
+	    <visual>
+	      <geometry>
+	        <box size = "0.1 0.2 0.06"/>
+	      </geometry>
+	      
+	      <origin xyz="0 0 0" rpy="1.57075 0 0" />
+	      <material name = "blue">
+	       <color rgba = "0 0 0.8 1"/>
+	      </material>
+	    </visual>
+	   </link>
+	   
+	   <joint name = "camera_indicator_joint" type = "fixed">
+	    <origin xyz = "0 0.33 0.2"/>
+	    <parent link = "camera_head"/>
+	    <child link = "camera_indicator"/>
+	   </joint>
+	   
+    
+	    <link name="base_link">
+	    
+		  <inertial>
+		      <mass value="10"/>
+		          <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+		  </inertial>
+
+	   
+	    <visual>
+                <geometry>
+                 <!-- <cylinder length = "0.6" radius = "0.4"/> -->
+                  <box size = "0.66 0.6 0.8"/>
+                </geometry>
+	    	 <origin xyz="0.00 0.0 0.0" rpy="0 0 0" />
+	    	 
+	    	  <material name="blue">
+	              <color rgba="0 0 0.8 1.0"/>
+	          </material>  
+	          
+	     
+	    </visual>
+	   
+	   <collision>
+	     <geometry>
+	       <cylinder length = "0.6" radius = "0.4"/> 
+	     </geometry>
+	   </collision> 
+	
+	  </link>
+	  
+	  <!-- Left part of the robot -->
+	  
+	  <link name="left_link">
+	    
+	    <visual>
+
+                <geometry>
+                   <box size = "0.6 0.4 0.2"/>
+                      
+                </geometry>
+                <origin xyz="0 0 -0.3" rpy="0 1.57075 0" />
+	     
+	    	<material name="white">
+	    	  <color rgba = "1 1 1 1"/>
+	    	</material>  
+	    </visual>
+	        
+              
+	  </link>
+	  
+	   
+	  <joint name = "left_link_joint" type = "continuous">
+	     <origin xyz="0.42 0 0"/>
+	    <parent link="base_link" />
+	    <child link="left_link" />
+	  </joint>  
+	  
+	  <link name = "left_foot">
+	  
+	  <visual>
+
+                <geometry>
+                   <box size = "0.08 0.8 0.2"/>
+                      
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 1.57075 0" />
+	     
+	    	<material name="white">
+	    	  <color rgba = "1 1 1 1"/>
+	    	</material>  
+	    </visual>
+	    
+	  </link>
+	  
+	  <joint name = "left_foot_joint" type = "fixed">
+	        <origin xyz="0 0 -0.6"/>
+	        <parent link="left_link" />
+	        <child link="left_foot" />
+	  
+	  </joint>
+	  
+	  <link name = "left_foot_toe_back">
+	     <visual>
+	       <geometry>
+	         <box size = "0.8 0.04 0.1"/>
+	         
+	       
+	       </geometry>
+	       <origin xyz = "0 0 0" rpy = "1.57075 0 0"/>
+	       
+	       <material name = "red">
+	         <color rgba = "1 0 0 1"/>
+	       </material>
+	     
+	     </visual>
+	  </link>
+	  
+	  <joint name = "left_foot_toe_back_joint" type = "fixed">
+	    <origin xyz = "-0.1 -0.1 -0.06"/>
+	    <parent link = "left_foot"/>
+	    <child  link = "left_foot_toe_back"/>
+	  </joint>  
+	  
+	  <link name = "left_foot_toe_front">
+	     <visual>
+	       <geometry>
+	         <box size = "0.8 0.04 0.1"/>
+	         
+	       
+	       </geometry>
+	       <origin xyz = "0 0 0" rpy = "1.57075 0 0"/>
+	       
+	       <material name = "red">
+	         <color rgba = "1 0 0 1"/>
+	       </material>
+	     
+	     </visual>
+	     
+	     <collision>
+	     <geometry>
+	       <cylinder length = "0.2" radius = "0.1"/> 
+	     </geometry>
+	   </collision> 
+	  </link>
+	  
+	  <joint name = "left_foot_toe_front_joint" type = "fixed">
+	    <origin xyz = "-0.1 0.33 -0.06"/>
+	    <parent link = "left_foot"/>
+	    <child  link = "left_foot_toe_front"/>
+	  </joint>  
+	  
+	  <!-- Right part of the robot -->
+	  <link name="right_link">
+	    
+	    <visual>
+
+                <geometry>
+                   <box size = "0.6 0.4 0.2"/>
+                      
+                </geometry>
+                <origin xyz="0 0 -0.3" rpy="0 1.57075 0" />
+	     
+	    	<material name="white">
+	    	  <color rgba = "1 1 1 1"/>
+	    	</material>  
+	    </visual>
+	   </link> 
+	    
+	  <joint name = "right_link_joint" type = "continuous">
+	     <origin xyz="-0.42 0 0"/>
+	    <parent link="base_link" />
+	    <child link="right_link" />
+	  </joint>  
+	  
+	  <link name = "right_foot">
+	  
+	  <visual>
+
+                <geometry>
+                   <box size = "0.08 0.8 0.1"/>
+                      
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 1.57075 0" />
+	     
+	    	<material name="white">
+	    	  <color rgba = "1 1 1 1"/>
+	    	</material>  
+	    </visual>
+	    
+	  </link>
+	  
+	  <joint name = "right_foot_joint" type = "fixed">
+	        <origin xyz="0 0 -0.6"/>
+	        <parent link="right_link" />
+	        <child link="right_foot" />
+	  
+	  </joint>
+	  
+	  	  <link name = "right_foot_toe_back">
+	     <visual>
+	       <geometry>
+	         <box size = "0.8 0.04 0.1"/>
+	         
+	       
+	       </geometry>
+	       <origin xyz = "0 0 0" rpy = "1.57075 0 0"/>
+	       
+	      <material name = "red">
+	         <color rgba = "1 0 0 1"/>
+	       </material>  
+	     
+	     </visual>
+	  </link>
+	  
+	  <joint name = "right_foot_toe_back_joint" type = "fixed">
+	    <origin xyz = "0.1 -0.3 -0.06"/>
+	    <parent link = "right_foot"/>
+	    <child  link = "right_foot_toe_back"/>
+	  </joint>  
+	  
+	  <link name = "right_foot_toe_front">
+	     <visual>
+	       <geometry>
+	         <box size = "0.8 0.04 0.1"/>
+	         
+	       
+	       </geometry>
+	       <origin xyz = "0 0 0" rpy = "1.57075 0 0"/>
+	       
+	       <material name = "red">
+	         <color rgba = "1 0 0 1"/>
+	       </material>  
+	     
+	     </visual>
+	  </link>
+	  
+	  <joint name = "right_foot_toe_front_joint" type = "fixed">
+	    <origin xyz = "0.1 0.13 -0.06"/>
+	    <parent link = "right_foot"/>
+	    <child  link = "right_foot_toe_front"/>
+	  </joint>  
+	
+</robot>  
